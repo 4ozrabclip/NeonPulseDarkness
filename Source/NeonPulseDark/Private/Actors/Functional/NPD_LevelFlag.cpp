@@ -45,4 +45,15 @@ void ANPD_LevelFlag::OnEnter(UPrimitiveComponent* OverlappedComp, AActor* OtherA
 		return;
 	
 	GameInstance->AddLevelFlagToPlayerData(FlagType);
+
+	TriggerBox->SetActive(false);
+	RemoveSisterFlag();
+}
+
+void ANPD_LevelFlag::RemoveSisterFlag()
+{
+	if (SisterFlag)
+	{
+		SisterFlag.Get()->Destroy();
+	}
 }

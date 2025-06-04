@@ -23,10 +23,15 @@ protected:
 	void OnEnter(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 	             int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, category = "Flag Type")
+	void RemoveSisterFlag();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Flag Type")
 	ELevelFlagType FlagType;
 
-public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sister Flag");
+	TSoftObjectPtr<ANPD_LevelFlag> SisterFlag;
+
+
 protected:
 	// Components
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")

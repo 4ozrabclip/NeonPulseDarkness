@@ -17,6 +17,15 @@ enum class ELevelDifficulty : uint8
 };
 
 UENUM()
+enum class ELevelType
+{
+	Regular		UMETA(DisplayName = "Regular Level"),
+	BlueVsRed	UMETA(DisplayName = "Blue Vs Red Level"),
+	Lidar		UMETA(DisplayName = "Lidar Level"),
+	Epilipsy	UMETA(DisplayName = "Epilipsy Level"),
+};
+
+UENUM()
 enum class ELevelTheme : uint8
 {
 	Scary UMETA(DisplayName = "Scary"),
@@ -44,7 +53,7 @@ struct FLevelCompletionData
 	
 };
 
-USTRUCT()
+USTRUCT(Blueprintable)
 struct FLevelData
 {
 	GENERATED_USTRUCT_BODY()
@@ -52,20 +61,24 @@ struct FLevelData
 	FLevelData() :
 	LevelName(""),
 	Difficulty(ELevelDifficulty::Medium),
-	Theme(ELevelTheme::Eerie)
+	Theme(ELevelTheme::Eerie),
+	LevelType(ELevelType::Regular)
 	{}
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere)
 	FString LevelName;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere)
 	ELevelDifficulty Difficulty;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere)
 	ELevelTheme Theme;
 
 	UPROPERTY()
 	FLevelCompletionData CompletionData;
+
+	UPROPERTY(EditAnywhere)
+	ELevelType LevelType;
 
 	float GetTimeLimit() const
 	{

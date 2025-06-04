@@ -33,6 +33,8 @@ public:
 
 	UFUNCTION()
 	void UpdateAudioVolumeSettings(const FAudioVolumeSettings InAudioVolumeSettings);
+
+
 	
 
 	//Delegate events
@@ -41,6 +43,7 @@ public:
 	UPROPERTY(BlueprintReadWrite, Category = Events)
 	FOnAudioVolumeSettingsChanged OnAudioVolumeSettingsChanged;
 protected:
+	UPROPERTY(EditAnywhere, Category = "Levels")
 	TArray<FLevelData> LevelsArray;
 
 	FPlayerData PlayerData;

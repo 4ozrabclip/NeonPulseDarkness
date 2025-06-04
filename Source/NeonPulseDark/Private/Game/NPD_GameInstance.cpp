@@ -11,7 +11,7 @@ void UNPD_GameInstance::Init()
 {
 	Super::Init();
 
-	InitializeLevelsArray();
+	//InitializeLevelsArray();
 	
 }
 void UNPD_GameInstance::InitializeLevelsArray()
@@ -20,49 +20,64 @@ void UNPD_GameInstance::InitializeLevelsArray()
 	SpaceMaze1.LevelName = TEXT("/Game/Levels/Space");
 	SpaceMaze1.Difficulty = ELevelDifficulty::Easy;
 	SpaceMaze1.Theme = ELevelTheme::Trippy;
+	SpaceMaze1.LevelType = ELevelType::Regular;
 	LevelsArray.Add(SpaceMaze1);
 
 	FLevelData Transition1;
 	Transition1.LevelName = TEXT("/Game/Levels/Transition1");
 	Transition1.Difficulty = ELevelDifficulty::Easy;
 	Transition1.Theme = ELevelTheme::Eerie;
+	Transition1.LevelType = ELevelType::Regular;
 	LevelsArray.Add(Transition1);
 	
 	FLevelData Transition2;
 	Transition2.LevelName = TEXT("/Game/Levels/Transition2");
 	Transition2.Difficulty = ELevelDifficulty::Easy;
 	Transition2.Theme = ELevelTheme::Ethereal;
+	Transition2.LevelType = ELevelType::Regular;
 	LevelsArray.Add(Transition2);
 	
 	FLevelData EntranceMaze1;
 	EntranceMaze1.LevelName = TEXT("/Game/Levels/EntranceMaze");
 	EntranceMaze1.Difficulty = ELevelDifficulty::Medium;
 	EntranceMaze1.Theme = ELevelTheme::Eerie;
+	EntranceMaze1.LevelType = ELevelType::Regular;
 	LevelsArray.Add(EntranceMaze1);
 
 	FLevelData LidarMaze1;
 	LidarMaze1.LevelName = TEXT("/Game/Levels/LidarMaze");
 	LidarMaze1.Difficulty = ELevelDifficulty::Hard;
 	LidarMaze1.Theme = ELevelTheme::Trippy;
+	LidarMaze1.LevelType = ELevelType::Lidar;
 	LevelsArray.Add(LidarMaze1);
 
 	FLevelData Unit9Maze;
 	Unit9Maze.LevelName = TEXT("/Game/Levels/Unit9Maze");
 	Unit9Maze.Difficulty = ELevelDifficulty::Hard;
 	Unit9Maze.Theme = ELevelTheme::Trippy;
+	Unit9Maze.LevelType = ELevelType::Epilipsy;
 	LevelsArray.Add(Unit9Maze);
 	
 	FLevelData TrummerWeltenMaze;
 	TrummerWeltenMaze.LevelName = TEXT("/Game/Levels/TrummerWelten");
 	TrummerWeltenMaze.Difficulty = ELevelDifficulty::Hard;
 	TrummerWeltenMaze.Theme = ELevelTheme::Sad;
+	TrummerWeltenMaze.LevelType = ELevelType::Regular;
 	LevelsArray.Add(TrummerWeltenMaze);
 	
 	FLevelData HospitalMaze;
 	HospitalMaze.LevelName = TEXT("/Game/Levels/HospitalMaze");
 	HospitalMaze.Difficulty = ELevelDifficulty::Hard;
 	HospitalMaze.Theme = ELevelTheme::Sad;
+	HospitalMaze.LevelType = ELevelType::Regular;
 	LevelsArray.Add(HospitalMaze);
+
+	FLevelData Mazuk;
+	Mazuk.LevelName = TEXT("/Game/Levels/Mazuk");
+	Mazuk.Difficulty = ELevelDifficulty::Hard;
+	Mazuk.Theme = ELevelTheme::Trippy;
+	Mazuk.LevelType = ELevelType::BlueVsRed;
+	LevelsArray.Add(Mazuk);
 }
 
 void UNPD_GameInstance::SetLevelAsComplete(const FString& LevelName, const float CompletedTime)
@@ -83,8 +98,6 @@ void UNPD_GameInstance::SetLevelAsComplete(const FString& LevelName, const float
 FString UNPD_GameInstance::GetRandLevelOnConditional()
 {
 	TArray<FString> PotentialMazes;
-	
-	const bool bPositivePlayer = PlayerData.BlueFlagsPickedUp > PlayerData.RedFlagsPickedUp;
 	
 	for (const FLevelData& Maze : LevelsArray)
 	{
@@ -108,15 +121,19 @@ FString UNPD_GameInstance::GetRandLevelOnConditional()
 
 		if (bInclude)
 		{
-			if (bPositivePlayer)
+			if (PlayerData.BlueFlagsPickedUp > PlayerData.RedFlagsPickedUp)
 			{
 				if (Maze.Theme == ELevelTheme::Trippy || Maze.Theme == ELevelTheme::Ethereal)
 					PotentialMazes.Add(Maze.LevelName);
 			}
-			else
+			else if (PlayerData.BlueFlagsPickedUp < PlayerData.RedFlagsPickedUp)
 			{
 				if (Maze.Theme != ELevelTheme::Ethereal)
 					PotentialMazes.Add(Maze.LevelName);
+			}
+			else
+			{
+				PotentialMazes.Add(Maze.LevelName);
 			}
 		}
 	}
