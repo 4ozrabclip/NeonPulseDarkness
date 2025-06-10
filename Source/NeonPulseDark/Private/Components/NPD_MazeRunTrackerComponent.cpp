@@ -65,7 +65,7 @@ void UNPD_MazeRunTrackerComponent::InitializeCountdown()
 
 	FLevelData CurrentLevel = GameInstance->GetCurrentLevelData();
 
-	MaxTime = CurrentLevel.GetTimeLimit();
+	MaxTime = 300.f;
 	
 	CurrentTime = MaxTime;
 

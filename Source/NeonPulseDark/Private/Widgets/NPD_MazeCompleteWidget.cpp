@@ -29,13 +29,13 @@ void UNPD_MazeCompleteWidget::ProcessClearData()
 
 	FLevelData ClearedMaze = GameInstance->GetCurrentLevelData();
 
-	float TimeCompletedPercentage = ClearedMaze.CompletionData.TimeTaken / ClearedMaze.GetTimeLimit();
+	//float TimeCompletedPercentage = ClearedMaze.CompletionData.TimeTaken / ClearedMaze.GetTimeLimit();
 
-	FString ClearedMazeText;
+	FString ClearedMazeText = TEXT("PERFECT CLEAR");
 
-	if (TimeCompletedPercentage < 0.2f)
+	/*if (TimeCompletedPercentage < 0.2f)
 	{
-		ClearedMazeText = TEXT("PERFECT CLEAR");
+		
 	}
 	else if (TimeCompletedPercentage < 0.5f)
 	{
@@ -48,7 +48,7 @@ void UNPD_MazeCompleteWidget::ProcessClearData()
 	else
 	{
 		ClearedMazeText = TEXT("SLOW CLEAR");
-	}
+	}*/
 
 	ClearData_Text->SetText(FText::FromString(ClearedMazeText));
 }

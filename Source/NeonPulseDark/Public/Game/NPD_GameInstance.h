@@ -22,7 +22,7 @@ public:
 	UNPD_GameInstance();
 	virtual void Init() override;
 	void InitializeLevelsArray();
-	void SetLevelAsComplete(const FString& LevelName, const float CompletedTime);
+	void SetLevelAsComplete(const FString& LevelPath, const float CompletedTime);
 	FString GetRandLevelOnConditional();
 
 	void SetCurrentLevel(const FString& InLevel);
@@ -30,12 +30,13 @@ public:
 	FLevelData GetCurrentLevelData() { return CurrentLevel; }
 	FPlayerData GetPlayerData() const { return PlayerData; }
 	FGameSettings GetGameSettings() const { return GameSettings; }
+	FGameMoodData& GetCurrentGameMood() { return CurrentGameMood; }
 
 	UFUNCTION()
 	void UpdateAudioVolumeSettings(const FAudioVolumeSettings InAudioVolumeSettings);
 
-
 	
+	FGameMoodData CurrentGameMood;
 
 	//Delegate events
 	UPROPERTY(BlueprintReadWrite, Category = Events)
